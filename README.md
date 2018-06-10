@@ -9,6 +9,9 @@ Quick links: [Using](#using) | [Installing](#installing) | [Contributing](#contr
 
 ## Using
 
+Enable or disable the maintenance mode
+
+    wp maintenance
 
 
 ## Installing
