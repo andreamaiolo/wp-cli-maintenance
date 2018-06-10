@@ -13,6 +13,7 @@ Enable or disable the maintenance mode
 
     wp maintenance
 
+This command will create the file `maintenance/maintenance.php` inside your active theme directory. Be sure to include this file in your `functions.php` to make the maintenance mode working properly.
 
 ## Installing
 
