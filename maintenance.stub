@@ -1,13 +1,13 @@
 <?php
 
 add_action( 'wp_loaded', function() {
-	global $pagenow;
+    global $pagenow;
 
     if ( defined( 'MAINTENANCE' ) && MAINTENANCE && $pagenow !== 'wp-login.php' && ! is_user_logged_in() ) {
-		$protocol = wp_get_server_protocol();
+        $protocol = wp_get_server_protocol();
 
-		header( "$protocol 503 Service Unavailable", true, 503 );
-		header( 'Content-Type: text/html; charset=utf-8' );
+        header( "$protocol 503 Service Unavailable", true, 503 );
+        header( 'Content-Type: text/html; charset=utf-8' );
 
         exit;
     }
