@@ -7,7 +7,7 @@ if ( ! class_exists( 'WP_CLI' ) ) {
 /**
  * Enable or disable the maintenance mode
  *
- * @when before_wp_load
+ * @when after_wp_load
  */
 $maintenance_command = function() {
 	try {
@@ -39,6 +39,22 @@ $maintenance_command = function() {
 		$success_message .= ( $config_value ? 'en' : 'dis' ) . 'abled';
 	} catch ( Exception $e ){
 		WP_CLI::error( $e->getMessage() );
+	}
+
+	$maintenance_path = get_stylesheet_directory() . '/maintenance/maintenance.php';
+
+	if ( ! file_exists( $maintenance_path ) ) {
+		global $wp_filesystem;
+
+		WP_Filesystem();
+
+		$wp_filesystem->mkdir( dirname( $maintenance_path ) );
+
+		if ( ! $wp_filesystem->put_contents( $maintenance_path, $wp_filesystem->get_contents( __DIR__ . '/maintenance.stub' ) ) ) {
+			WP_CLI::error( "Error creating file: $maintenance_path" );
+		} else {
+			WP_CLI::log( 'Created: ' . $maintenance_path );
+		}
 	}
 
 	WP_CLI::success( $success_message );
